@@ -18,6 +18,8 @@ UE 不在 Mac 或 Linux 上部署。开发机是 `luowindows`，工作区 `E:\Wo
 
 安装 UE 时**建议装 D 盘**（203G 空闲），不要装 E 盘——E 盘要留给工作区，UE 单版本加 DerivedDataCache 轻松吃掉 100G+。
 
+杀软方面：Defender 已被火绒接管并完全停用，实际在跑的是火绒 + 腾讯电脑管家。**不要给 Defender 加排除目录，无效。** 是否给火绒／腾讯管家加信任区，等首次完整编译实测耗时后再决定。
+
 该机 32 核但**只有 13.7G 内存**，编 UE C++ 时内存会先于 CPU 成为瓶颈，可能要在 `BuildConfiguration.xml` 限制 `MaxParallelActions`。**编译失败先排查内存，别急着怀疑代码。**
 
 已配置：`LongPathsEnabled=1`（系统层）、`core.longpaths=true`（git 层，两者是独立开关，都要开）、Git LFS 已 install。
