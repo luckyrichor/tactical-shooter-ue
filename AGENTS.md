@@ -1,0 +1,59 @@
+# AGENTS.md
+
+本文件为在本仓库工作的编码 agent 提供指引（Claude Code 读 `CLAUDE.md`、Codex 读 `AGENTS.md`，两者都指向这里）。
+
+## 这是什么
+
+UE C++ 战术射击原型：武器系统、技能、敌人 AI（行为树 + 感知）、简化版多人同步、性能分析。
+
+三个月求职计划六项目之一（原编号 ①），对应岗位 **03、04**，兼顾 **12**。总计划见 [workplan-docs](https://github.com/luckyrichor/workplan-docs)。
+
+**当前状态：未开工，且环境未就绪 —— UE 尚未安装。**
+
+在 UE 装好之前，本项目只能推进不依赖引擎的部分（技术方案、系统设计）。**不要把无法编译的代码算作进展。**
+
+## 环境：只在 Windows 机器上开发
+
+UE 不在 Mac 或 Linux 上部署。开发机是 `luowindows`，工作区 `E:\WorkPlan`。
+
+安装 UE 时**建议装 D 盘**（203G 空闲），不要装 E 盘——E 盘要留给工作区，UE 单版本加 DerivedDataCache 轻松吃掉 100G+。
+
+该机 32 核但**只有 13.7G 内存**，编 UE C++ 时内存会先于 CPU 成为瓶颈，可能要在 `BuildConfiguration.xml` 限制 `MaxParallelActions`。**编译失败先排查内存，别急着怀疑代码。**
+
+已配置：`LongPathsEnabled=1`（系统层）、`core.longpaths=true`（git 层，两者是独立开关，都要开）、Git LFS 已 install。
+
+## 分工模式：混合
+
+- **Claude**：通过 ssh 写 C++ 源码、调 UBT 编译、跑 UE Automation Test、读编译与测试日志
+- **用户**：在编辑器里做场景搭建、蓝图连线、动画状态机配置、Unreal Insights 分析和肉眼验证
+
+这不是分工偷懒，是 UE 的固有形态——编辑器操作无法通过 ssh 完成。岗位 03/04/12 主要考察 C++ gameplay 能力，这部分由代码承载。
+
+## Git LFS
+
+`.uasset` / `.umap` / `.fbx` / 贴图 / 音频走 LFS，规则已写在 `.gitattributes`。克隆后先 `git lfs install`。**不要把二进制资产直接提交进 git**，仓库会撑爆且无法 diff。
+
+## 所有项目共同的约束
+
+这些是用户明确要求的，优先级高于一般工程习惯：
+
+- **区分事实与推断**：JD 原文明确写的、与「行业常见要求／补充推断」必须显式区分。允许联网补充，但要标注来源性质。
+- **不夸大**：不把规划写成已完成成果，不把本地测试数据包装成生产规模，不把加分项改写成硬性门槛。
+- **不预设降级**：即使用户当下没时间反馈，也按既定方向持续推进产出，不因「时间可能不够」提前砍掉或缩水——取舍由用户自己做。
+- **不安排模型算法、训练、微调、推理引擎优化方向的学习。**
+- 不需要重新确认用户背景：Python 最熟练，C++/C#/Go 有基础，Agent 开发已较熟悉。直接进入框架层和有深度的工程问题，不安排语言零基础或入门教程。
+- **AI 产出的代码不等于可以写进简历。** 用户要能在面试里讲清每个关键设计取舍，偏产出的项目要同步维护 `docs/design-decisions.md`。
+
+## 多机协作
+
+三台机器：Mac、`tx`（Ubuntu 服务器，常开）、`luowindows`（Windows，引擎唯一机器）。GitHub 是唯一事实源。
+
+- **开工 `git pull`，收工 `git push`**，不留未推送的提交过夜
+- **同一个项目同一时间只在一台机器上改**
+- 密钥永不进仓库，放仓库内已 gitignore 的 `.local/`
+
+**动环境之前先读 [`workplan-docs/环境与踩坑记录.md`](https://github.com/luckyrichor/workplan-docs/blob/main/环境与踩坑记录.md)** —— 三台的规格、三种不同的代理机制、以及十条已经踩过的坑都在那里。其中两条最容易再犯：三台文件系统大小写敏感性不一致（tx 敏感，另外两台不敏感）；PowerShell 5.1 的 BOM 规则（读 `.ps1` 必须带 BOM，写文件绝不能带）。
+
+## 进度记录
+
+进展写在 `docs/progress.md`：**只写已发生的事，不写计划**；失败和返工也要记，那是面试时最有料的部分。汇总到 `workplan-docs/进度总览.md`。
