@@ -24,6 +24,28 @@ UE 不在 Mac 或 Linux 上部署。开发机是 `luowindows`，工作区 `E:\Wo
 
 已配置：`LongPathsEnabled=1`（系统层）、`core.longpaths=true`（git 层，两者是独立开关，都要开）、Git LFS 已 install。
 
+### 编译器：必须用 VS 2022，不是 2026
+
+机器上有三套 VS，**只有 Community 2022 装了「使用 C++ 的游戏开发」工作负载**，而且它装在**非常规位置 `F:\VS\IDE`**（不在 C 盘，容易找不到）：
+
+| 实例 | 路径 | MSVC |
+|---|---|---|
+| **Community 2022 ← 用这个** | `F:\VS\IDE` | 14.44.35207 |
+| Community 2026 | `C:\Program Files\Microsoft Visual Studio\18\Community` | 14.51.36231 |
+| 生成工具 2022 | `C:\Program Files (x86)\...\BuildTools` | 14.44.35207 |
+
+UE 5.x 官方支持 VS 2022；2026 的 MSVC 14.51 太新，UnrealBuildTool 大概率不认。**两个 VS 并存时 UE 可能挑错**，生成工程前先在 `BuildConfiguration.xml` 显式锁定：
+
+```xml
+<Configuration>
+  <WindowsPlatform>
+    <Compiler>VisualStudio2022</Compiler>
+  </WindowsPlatform>
+</Configuration>
+```
+
+该文件位于 `%USERPROFILE%\Documents\Unreal Engine\UnrealBuildTool\BuildConfiguration.xml`。内存只有 13.7G，同一文件里也可以顺便限制并行度。
+
 ## 分工模式：混合
 
 - **Claude**：通过 ssh 写 C++ 源码、调 UBT 编译、跑 UE Automation Test、读编译与测试日志
