@@ -1,0 +1,16 @@
+.DS_Store
+.local/
+# UE 生成目录
+Binaries/
+Build/
+DerivedDataCache/
+Intermediate/
+Saved/
+.vs/
+.idea/
+*.sln
+*.xcodeproj/
+*.VC.db
+*.opensdf
+*.sdf
+*.suo
