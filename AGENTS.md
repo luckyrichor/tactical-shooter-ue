@@ -41,13 +41,31 @@ UE C++ 战术射击原型：武器系统、技能、敌人 AI（行为树 + 感�
 | `ReplicationGraph` | 有 |
 | C++ 模板 | `TP_Blank` / `TP_FirstPerson` / `TP_ThirdPerson` / `TP_TopDown` / `TP_VehicleAdv` / `TP_SIM_Blank` |
 
-**尚未做过真实编译验证** —— 整条工具链（UE + VS 2022 + UBT + Windows SDK）还没跑通过一次完整构建。开工前应先建一个最小 C++ 工程编译一次，确认地基可用（参照 `agent-memory` 的基线验证做法）。
+### 工具链已完整验证［实测 2026-09-20］
+
+在 `D:\UEProbe`（一次性目录，验证后已删）建最小 C++ 工程编译 `UEProbeEditor Win64 Development`：
+
+| 项 | 结果 |
+|---|---|
+| 退出码 | **0，Succeeded** |
+| 耗时 | 首次 82 秒；清中间产物后重编 38 秒 |
+| 产物 | `UnrealEditor-UEProbe.dll` / `.pdb` / `.target` |
+| 链接的模块 | `GameplayAbilities`、`GameplayTags`、`GameplayTasks`、`AIModule`、`NavigationSystem` **全部链接成功** |
+| Windows SDK | 实际使用 10.0.22621.0 |
+
+**82 秒／38 秒是"改一处代码后重编"的量级参考**（引擎是预编译的）。真正变慢会发生在自有代码积累起来之后。
 
 ### BuildConfiguration.xml（已配置）
 
 位于 `%USERPROFILE%\Documents\Unreal Engine\UnrealBuildTool\BuildConfiguration.xml`：
 
-- `<Compiler>VisualStudio2022</Compiler>` —— 本机两个 VS 并存，UE 5.6 不支持 2026，必须显式锁定
+- `<Compiler>VisualStudio2022</Compiler>` **加** `<CompilerVersion>14.44.35207</CompilerVersion>`
+
+  **只写 `<Compiler>` 不够**［实测踩过］：UBT 把它当**编译器系列**处理，然后在该系列里挑版本号最高的工具链。本机三个 x64 工具链里最高的是 VS 2026 的 **14.51**，于是它挑了 VS 2026 的编译器，日志里还把它标成"Visual Studio 2022 14.51"——极具迷惑性。加上 `<CompilerVersion>` 才真正锁住。
+
+  锁定后实际使用 `C:\Program Files (x86)\...\2022\BuildTools\VC\Tools\MSVC\14.44.35207`，而不是 `F:\VS\IDE` 那份。**两份是同一工具链版本，编译器二进制相同，无差别**；游戏开发工作负载提供的是 IDE 集成与调试器，不是编译器。
+
+  ［预警］UE 5.6 的偏好版本是 **MSVC 14.38.33130**，本机只有 14.44 和 14.51，因此日志会一直有 `not a preferred version` 警告。**这是 warning 不是 error，构建正常通过**。要消掉需用 VS 安装器补装 14.38 工具链，收益很小，暂不处理。
 - `<MaxParallelActions>12</MaxParallelActions>` 与 `<MaxProcessorCount>12</MaxProcessorCount>` —— 32 核但仅 13.7G 内存，并行编译时内存先爆。**编译报内存相关错误时先调这两个值，别急着怀疑代码**
 - 注释用纯 ASCII：PowerShell 5.1 以 GBK 显示无 BOM 的 UTF-8 文件会乱码，中文注释会造成误判
 
