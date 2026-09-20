@@ -8,9 +8,15 @@ UE C++ 战术射击原型：武器系统、技能、敌人 AI（行为树 + 感�
 
 三个月求职计划六项目之一（原编号 ①），对应岗位 **03、04**，兼顾 **12**。总计划见 [workplan-docs](https://github.com/luckyrichor/workplan-docs)。
 
-**当前状态：未开工，等待安装 UE。**
+**当前状态：未开工，环境已就绪。**
 
-## 引擎版本：UE 5.6（2026-09-19 已确定）
+## 引擎版本：UE 5.6.1（已安装）
+
+```
+引擎路径  D:\UE\UE_5.6
+版本      5.6.1   CL-44394996   ++UE5+Release-5.6
+占用      25.4 GB（精简安装，未含调试符号）    D 盘剩余 176.9 GB
+```
 
 **使用 UE `5.6`，不要擅自改版本。** 选型依据：
 
@@ -19,7 +25,31 @@ UE C++ 战术射击原型：武器系统、技能、敌人 AI（行为树 + 感�
 - 社区资料覆盖充分，卡住时搜得到对口答案
 - 岗位 03/04/12 考的是 gameplay 框架、GAS、行为树、网络同步，这些在 5.x 内稳定，没有岗位要求特定版本
 
-装好后**把确切小版本号（如 5.6.x）告诉 Claude 并更新本节**，API 细节按该版本对齐。
+**API 细节一律按 5.6.1 对齐**，不要照搬其他版本的写法。
+
+### 已验证的环境［实测 2026-09-20］
+
+| 项 | 状态 |
+|---|---|
+| `UnrealEditor.exe` / `UnrealEditor-Cmd.exe` | 有 |
+| `UnrealBuildTool.exe` | 有，可运行（.NET 运行时正常） |
+| `Build.bat` | 有 |
+| `GenerateProjectFiles.bat` | **无——Launcher 二进制版本来就没有**，靠右键 `.uproject` 生成工程文件，不是缺东西 |
+| 引擎源码 `Runtime` | 有 |
+| `AIModule` / `NavigationSystem` / `GameplayTasks` | 有（行为树与感知内置于引擎，不是插件） |
+| `GameplayAbilities`（GAS） | 有 |
+| `ReplicationGraph` | 有 |
+| C++ 模板 | `TP_Blank` / `TP_FirstPerson` / `TP_ThirdPerson` / `TP_TopDown` / `TP_VehicleAdv` / `TP_SIM_Blank` |
+
+**尚未做过真实编译验证** —— 整条工具链（UE + VS 2022 + UBT + Windows SDK）还没跑通过一次完整构建。开工前应先建一个最小 C++ 工程编译一次，确认地基可用（参照 `agent-memory` 的基线验证做法）。
+
+### BuildConfiguration.xml（已配置）
+
+位于 `%USERPROFILE%\Documents\Unreal Engine\UnrealBuildTool\BuildConfiguration.xml`：
+
+- `<Compiler>VisualStudio2022</Compiler>` —— 本机两个 VS 并存，UE 5.6 不支持 2026，必须显式锁定
+- `<MaxParallelActions>12</MaxParallelActions>` 与 `<MaxProcessorCount>12</MaxProcessorCount>` —— 32 核但仅 13.7G 内存，并行编译时内存先爆。**编译报内存相关错误时先调这两个值，别急着怀疑代码**
+- 注释用纯 ASCII：PowerShell 5.1 以 GBK 显示无 BOM 的 UTF-8 文件会乱码，中文注释会造成误判
 
 在 UE 装好之前，本项目只能推进不依赖引擎的部分（技术方案、系统设计）。**不要把无法编译的代码算作进展。**
 
