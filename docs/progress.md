@@ -1,6 +1,6 @@
 # 进度记录
 
-最后更新：2026-10-01（北京时间）
+最后更新：2026-10-02（北京时间）
 
 本文件是 `tactical-shooter-ue` 的进度事实源，汇总到 `workplan-docs/进度总览.md`。
 
@@ -17,8 +17,8 @@
 W2 骨架/移动/射击/武器状态机未开发编译，不能验收；W4 维持也未完成，不把这条阻塞记录算作工程进展。接续：用户提供 tx 可用的 Windows SSH HostName/User/公钥授权或在 Windows 会话执行；先查 Windows git status 与运行进程，确认无同仓并行修改后 pull --ff-only，再按操作手册创建/编译工程。编译通过后还需用户编辑器角色移动/射击/武器状态肉眼验收。
 
 只有 docs/progress.md 增加本条事实记录，未改代码、未提交/推送。
-# 2026-10-02 W5 / W7（Codex）
+## 2026-10-02 W5 / W7（Codex）
 
 来源 tactical-shooter-ue@906115f，代码未修改。用户授权提前推进 W5–W7，并允许暂不可做项跳过。本次 pull --ff-only 无新增提交；再次 ssh luowindows hostname 返回域名无法解析，未连接Windows或核实其工作树。
 
-W5 M2 GAS 两个技能的 Ability/Effect/Cue 链路，以及 W7 独立维护，按授权暂跳过；没有实现/编译/编辑器验收，不标完成。需先恢复 Windows 入口及 M1 工程，再完成技能资产配置与编辑器运行。没有在 tx 写无法验证的UE源码。以下为历史记录。
+W5 M2 GAS 两个技能的 Ability/Effect/Cue 链路，以及 W7 独立维护，按授权暂跳过；没有实现/编译/编辑器验收，不标完成。需先恢复 Windows 入口及 M1 工程，再完成技能资产配置与编辑器运行。没有在 tx 写无法验证的UE源码。此前章节为历史记录。
