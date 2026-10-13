@@ -1,0 +1,85 @@
+﻿{
+	"devices": [
+		{
+			"deviceName": "LUOWINDOWS",
+			"instance": "EB0FDBC742BC459C070B68BE4AB76714",
+			"instanceName": "LUOWINDOWS-24896",
+			"platform": "WindowsEditor",
+			"oSVersion": "Windows 11 (25H2) [10.0.26200.9457] ",
+			"model": "Default",
+			"gPU": "GenericGPUBrand",
+			"cPUModel": "13th Gen Intel(R) Core(TM) i9-13900HX",
+			"rAMInGB": 14,
+			"renderMode": "SM6",
+			"rHI": "",
+			"appInstanceLog": ""
+		}
+	],
+	"reportCreatedOn": "2026.10.13-13.26.13",
+	"succeeded": 4,
+	"succeededWithWarnings": 0,
+	"failed": 0,
+	"notRun": 0,
+	"inProcess": 0,
+	"totalDuration": 1.5482780933380127,
+	"comparisonExported": false,
+	"comparisonExportDirectory": "",
+	"tests": [
+		{
+			"testDisplayName": "BehaviorTransitions",
+			"fullTestPath": "CombatLab.AI.BehaviorTransitions",
+			"state": "Success",
+			"deviceInstance": [
+				"EB0FDBC742BC459C070B68BE4AB76714"
+			],
+			"duration": 0.27739658951759338,
+			"dateTime": "2026.10.13-13.26.11",
+			"entries": [],
+			"warnings": 0,
+			"errors": 0,
+			"artifacts": []
+		},
+		{
+			"testDisplayName": "CostDamageCue",
+			"fullTestPath": "CombatLab.GAS.CostDamageCue",
+			"state": "Success",
+			"deviceInstance": [
+				"EB0FDBC742BC459C070B68BE4AB76714"
+			],
+			"duration": 0.01861879974603653,
+			"dateTime": "2026.10.13-13.26.12",
+			"entries": [],
+			"warnings": 0,
+			"errors": 0,
+			"artifacts": []
+		},
+		{
+			"testDisplayName": "HealthClamp",
+			"fullTestPath": "CombatLab.GAS.HealthClamp",
+			"state": "Success",
+			"deviceInstance": [
+				"EB0FDBC742BC459C070B68BE4AB76714"
+			],
+			"duration": 0.018617499619722366,
+			"dateTime": "2026.10.13-13.26.12",
+			"entries": [],
+			"warnings": 0,
+			"errors": 0,
+			"artifacts": []
+		},
+		{
+			"testDisplayName": "CadenceReload",
+			"fullTestPath": "CombatLab.Weapon.CadenceReload",
+			"state": "Success",
+			"deviceInstance": [
+				"EB0FDBC742BC459C070B68BE4AB76714"
+			],
+			"duration": 1.2336452007293701,
+			"dateTime": "2026.10.13-13.26.12",
+			"entries": [],
+			"warnings": 0,
+			"errors": 0,
+			"artifacts": []
+		}
+	]
+}

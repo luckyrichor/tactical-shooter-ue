@@ -1,0 +1,19 @@
+{
+    "client_modes":  3,
+    "scenario":  "loopback, null RHI, t.MaxFPS=60; network probe places enemy out of sight",
+    "trace_bytes":  5709761,
+    "verified_final_actor_states":  6,
+    "trace_file":  "server-20261013-212618.utrace",
+    "skill_rpc":  true,
+    "csv_bytes":  1897166,
+    "client_cues":  true,
+    "csv_file":  "Profile(20261013_212636).csv",
+    "server_exit":  0,
+    "joins":  2,
+    "date":  "2026-10-13",
+    "server_mode":  "listen",
+    "client_exits":  [
+                         0,
+                         0
+                     ]
+}

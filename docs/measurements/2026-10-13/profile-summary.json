@@ -1,0 +1,29 @@
+{
+    "trace_sha256":  "4e19e4522f4b354d5caf3961b7046159f5925801d031d0fdf6d9f1971201d6a1",
+    "boundary":  "One local null RHI capture; inclusive CPU durations; small skill sample sizes; no GPU/FPS/optimization benefit claim",
+    "event_csv_sha256":  "2e3a9d23278c1625841e00e3d6a918dca0d9405b7b9c41e2c45d61cb0dcf87f1",
+    "scopes":  {
+                   "Lab_Dash":  {
+                                    "max_us":  357.5,
+                                    "samples":  4,
+                                    "median_us":  298.4
+                                },
+                   "Lab_AI":  {
+                                  "max_us":  132.4,
+                                  "samples":  2686,
+                                  "median_us":  12.9
+                              },
+                   "Lab_Fire":  {
+                                    "max_us":  215.1,
+                                    "samples":  8,
+                                    "median_us":  90.6
+                                },
+                   "Lab_Pulse":  {
+                                     "max_us":  1371.8999999999999,
+                                     "samples":  2,
+                                     "median_us":  978.69999999999993
+                                 }
+               },
+    "insights_exit":  0,
+    "engine":  "UE 5.6.1"
+}

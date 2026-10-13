@@ -1,0 +1,1 @@
+{"FileVersion":3,"EngineAssociation":"5.6","Category":"","Description":"Codex tactical shooter laboratory","Modules":[{"Name":"CombatLab","Type":"Runtime","LoadingPhase":"Default"}],"Plugins":[{"Name":"GameplayAbilities","Enabled":true}]}

@@ -1,0 +1,22 @@
+{
+    "source_sha256":  {
+                          "Source/CombatLab/CombatTypes.cpp":  "639d4d3068820c5492925d20c252c7fa0fc67867e1c29e0625b1f483e68531b6",
+                          "Source/CombatLabEditor.Target.cs":  "642b714124e4e80e4dab0e4b8022d30139ab140d1a193a1fb22115d24f162db4",
+                          "CombatLab.uproject":  "531161551f0f12def86969956c41dc9fe3fccd8c14ab6470f7aa020451ba4ea9",
+                          "Source/CombatLab/CombatTypes.h":  "a9de9ace768fb0e2aab7c447b8dde9f54ca6c338b6cd178a25fa1eb993c63ea4",
+                          "Source/CombatLab/CombatLab.Build.cs":  "104fef8bc3717e4699468b0a5ee1e2aad7b12da781232fa7eb98a4dce3e27b2b",
+                          "Source/CombatLab/CombatLab.cpp":  "fc4cc72e8f4571371a744f32e3b96853caca8ef6acd63fad6fa8ff98d7b7a59f",
+                          "Source/CombatLab.Target.cs":  "caf20d76f317ac6099620a41b4744d56f5e513bd975d75eeb299dff42f29efa5",
+                          "Source/CombatLab/CombatTests.cpp":  "2b6513c45fde2f1f414cf8ddbe3db5f1342757faf4a142aaa668ffb1580e82a5",
+                          "Config/DefaultInput.ini":  "63d18bf6e1521bf40dd3c4147406160cbf56ee82ee4f41804a57fe119d526953",
+                          "scripts/check.ps1":  "f497199e3d0259a710eebb5d574696dccc08f253314a9f21780667cb57bcd14c",
+                          "Config/DefaultGame.ini":  "21d31f0aeac2570f641bbb1bc6e59da863c79462563bde9de742677fe9c047ae",
+                          "Config/DefaultEngine.ini":  "e372b8cd31572bf91adff701fe757374fea1ff182422ed3c7bd6069bee2c1bd3",
+                          "scripts/profile.ps1":  "76f8325233aa6670c24f43478b576c91eca298b9d253f2d2b0b551399f9a042f"
+                      },
+    "working_tree":  true,
+    "baseline":  "8322c823ebd061edd1087f308c59d0b58ed14358",
+    "date":  "2026-10-13",
+    "automation_clean_successes":  4,
+    "engine":  "UE 5.6.1"
+}

@@ -2,7 +2,7 @@
 
 UE C++ 战术射击原型：武器系统、技能、敌人 AI（行为树 + 感知）、简化版多人同步、性能分析。
 
-**状态：未开工，环境已就绪**（2026-09-20）
+**状态：CombatLab工程已完成编译、四项Automation、双客户端联机与Insights CPU采集验收**（2026-10-13）
 
 动手前先读 [`docs/操作手册-工程骨架.md`](docs/操作手册-工程骨架.md)——建工程、编译、提交的分步操作。
 
@@ -20,7 +20,7 @@ UE C++ 战术射击原型：武器系统、技能、敌人 AI（行为树 + 感�
 
 ## 分工
 
-- Claude 通过 ssh 写 C++ 源码、调 UBT 编译、跑 UE Automation Test、读编译与测试日志
+- 助手通过 ssh 写 C++ 源码、调 UBT 编译、跑 UE Automation Test、读编译与测试日志
 - 用户在编辑器里做场景搭建、蓝图连线、动画状态机配置、Unreal Insights 分析和肉眼验证
 
 这不是分工偷懒，是 UE 的固有形态：编辑器操作无法通过 ssh 完成。岗位 03/04/12 主要考察 C++ gameplay 能力，这部分由代码承载。
@@ -28,3 +28,6 @@ UE C++ 战术射击原型：武器系统、技能、敌人 AI（行为树 + 感�
 ## Git LFS
 
 本仓库启用 LFS 管理 `.uasset` / `.umap` 等二进制资产。克隆后先 `git lfs install`。
+
+## 2026-10-13 实际工程（Codex）
+CombatLab.uproject为UE5.6.1原生C++原型：角色/武器、两条GAS技能链、Sight+BehaviorTree、Listen Server同步与CPU采集。运行和验收见[docs/run.md](docs/run.md)，取舍见[docs/design-decisions.md](docs/design-decisions.md)。此前未开工/操作手册为历史材料；人工手感与画面验收不冒充完成。

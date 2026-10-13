@@ -27,3 +27,6 @@ W5 M2 GAS 两个技能的 Ability/Effect/Cue 链路，以及 W7 独立维护，�
 ## 2026-10-07 Codex：W8–W10实际执行
 
 本轮执行W8–W10范围核对后按用户授权跳过不可执行项。2026-10-07 TX实测ssh -o BatchMode=yes -o ConnectTimeout=5 luowindows hostname退出255，Temporary failure in name resolution；无法访问唯一UE工作机。未运行UE编译、行为树/感知测试或编辑器操作。W9 M3敌人AI及W10维护未完成，M1/GAS等前置缺口仍存在；没有以无法编译源码替代验收。恢复工作机入口后核实M1、补前置再做AI。此次只有进度记录更新。
+
+## 2026-10-13 Windows恢复后的M1–M4工程验收（Codex）
+基线8322c82及本轮工作树：CombatLab Editor构建成功，4项Automation全Succeeded无警告。真实Listen Server+双客户端两次入服、技能RPC与Cue、8组最终角色关键状态一致；三个进程退出0。Unreal Insights实际分析新5709761字节Trace并导出Lab_*事件，frame CSV有2570 帧，完整报告/源码哈希见measurements/2026-10-13。RHI启动采集断言、旧Trace拒绝覆盖、测试World EndPlay与PowerShell退出码均修正后重跑。null RHI与限帧不构成渲染/生产性能，手感/画面人工验收按授权保留；此前跳过记录均为历史。

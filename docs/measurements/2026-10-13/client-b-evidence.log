@@ -1,0 +1,84 @@
+[2026.10.13-13.26.36:369][  0]LogCsvProfiler: Display: Metadata set : systemresolution.resx="1024"
+[2026.10.13-13.26.36:369][  0]LogCsvProfiler: Display: Metadata set : systemresolution.resy="768"
+[2026.10.13-13.26.36:382][  0]LogCsvProfiler: Display: Metadata set : extradevelopmentmemorymb="0"
+[2026.10.13-13.26.36:637][  0]LogCsvProfiler: Display: Metadata set : verbatimrhiname="Null"
+[2026.10.13-13.26.36:637][  0]LogCsvProfiler: Display: Metadata set : rhiname="Null"
+[2026.10.13-13.26.36:637][  0]LogCsvProfiler: Display: Metadata set : rhifeaturelevel="SM6"
+[2026.10.13-13.26.36:638][  0]LogCsvProfiler: Display: Metadata set : shaderplatform="PCD3D_SM6"
+[2026.10.13-13.26.40:029][  0]LogCsvProfiler: Display: Metadata set : deviceprofile="WindowsEditor"
+[2026.10.13-13.26.43:824][  0]LogCsvProfiler: Display: Metadata set : largeworldcoordinates="1"
+[2026.10.13-13.26.44:826][  0]LogCsvProfiler: Display: Metadata set : iris="0"
+[2026.10.13-13.26.46:048][ 14]LogTemp: Display: LAB_STATE net=3 id=3 actor=CombatCharacter_1 ammo=27 health=100 stamina=20 ai=Player
+[2026.10.13-13.26.46:049][ 14]LogTemp: Display: LAB_STATE net=3 id=1 actor=CombatCharacter_2 ammo=30 health=80 stamina=100 ai=Player
+[2026.10.13-13.26.46:049][ 15]LogTemp: Display: LAB_STATE net=3 id=4 actor=CombatCharacter_0 ammo=30 health=100 stamina=100 ai=Player
+[2026.10.13-13.26.47:035][ 74]LogTemp: Display: LAB_STATE net=3 id=3 actor=CombatCharacter_1 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.26.47:035][ 75]LogTemp: Display: LAB_STATE net=3 id=1 actor=CombatCharacter_2 ammo=30 health=80 stamina=100 ai=Player
+[2026.10.13-13.26.47:036][ 75]LogTemp: Display: LAB_STATE net=3 id=4 actor=CombatCharacter_0 ammo=30 health=100 stamina=100 ai=Player
+[2026.10.13-13.26.47:918][127]LogTemp: Display: LAB_CUE Pulse CombatCharacter_0
+[2026.10.13-13.26.47:919][127]LogTemp: Display: LAB_CUE Dash CombatCharacter_0
+[2026.10.13-13.26.48:034][134]LogTemp: Display: LAB_STATE net=3 id=3 actor=CombatCharacter_1 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.26.48:035][135]LogTemp: Display: LAB_STATE net=3 id=1 actor=CombatCharacter_2 ammo=30 health=60 stamina=100 ai=Player
+[2026.10.13-13.26.48:036][135]LogTemp: Display: LAB_STATE net=3 id=4 actor=CombatCharacter_0 ammo=29 health=100 stamina=45 ai=Player
+[2026.10.13-13.26.49:035][194]LogTemp: Display: LAB_STATE net=3 id=3 actor=CombatCharacter_1 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.26.49:036][195]LogTemp: Display: LAB_STATE net=3 id=1 actor=CombatCharacter_2 ammo=30 health=60 stamina=100 ai=Player
+[2026.10.13-13.26.49:036][195]LogTemp: Display: LAB_STATE net=3 id=4 actor=CombatCharacter_0 ammo=28 health=100 stamina=45 ai=Player
+[2026.10.13-13.26.49:917][247]LogTemp: Display: LAB_CUE Dash CombatCharacter_0
+[2026.10.13-13.26.50:035][254]LogTemp: Display: LAB_STATE net=3 id=3 actor=CombatCharacter_1 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.26.50:035][254]LogTemp: Display: LAB_STATE net=3 id=1 actor=CombatCharacter_2 ammo=30 health=60 stamina=100 ai=Player
+[2026.10.13-13.26.50:036][255]LogTemp: Display: LAB_STATE net=3 id=4 actor=CombatCharacter_0 ammo=27 health=100 stamina=20 ai=Player
+[2026.10.13-13.26.51:035][314]LogTemp: Display: LAB_STATE net=3 id=3 actor=CombatCharacter_1 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.26.51:036][315]LogTemp: Display: LAB_STATE net=3 id=1 actor=CombatCharacter_2 ammo=30 health=60 stamina=100 ai=Player
+[2026.10.13-13.26.51:037][315]LogTemp: Display: LAB_STATE net=3 id=4 actor=CombatCharacter_0 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.26.52:035][374]LogTemp: Display: LAB_STATE net=3 id=3 actor=CombatCharacter_1 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.26.52:036][375]LogTemp: Display: LAB_STATE net=3 id=1 actor=CombatCharacter_2 ammo=30 health=60 stamina=100 ai=Player
+[2026.10.13-13.26.52:036][375]LogTemp: Display: LAB_STATE net=3 id=4 actor=CombatCharacter_0 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.26.53:035][434]LogTemp: Display: LAB_STATE net=3 id=3 actor=CombatCharacter_1 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.26.53:036][435]LogTemp: Display: LAB_STATE net=3 id=1 actor=CombatCharacter_2 ammo=30 health=60 stamina=100 ai=Player
+[2026.10.13-13.26.53:036][435]LogTemp: Display: LAB_STATE net=3 id=4 actor=CombatCharacter_0 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.26.54:035][494]LogTemp: Display: LAB_STATE net=3 id=3 actor=CombatCharacter_1 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.26.54:036][495]LogTemp: Display: LAB_STATE net=3 id=1 actor=CombatCharacter_2 ammo=30 health=60 stamina=100 ai=Player
+[2026.10.13-13.26.54:037][495]LogTemp: Display: LAB_STATE net=3 id=4 actor=CombatCharacter_0 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.26.55:036][554]LogTemp: Display: LAB_STATE net=3 id=3 actor=CombatCharacter_1 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.26.55:037][555]LogTemp: Display: LAB_STATE net=3 id=1 actor=CombatCharacter_2 ammo=30 health=60 stamina=100 ai=Player
+[2026.10.13-13.26.55:037][555]LogTemp: Display: LAB_STATE net=3 id=4 actor=CombatCharacter_0 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.26.56:037][615]LogTemp: Display: LAB_STATE net=3 id=3 actor=CombatCharacter_1 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.26.56:038][615]LogTemp: Display: LAB_STATE net=3 id=1 actor=CombatCharacter_2 ammo=30 health=60 stamina=100 ai=Player
+[2026.10.13-13.26.56:038][615]LogTemp: Display: LAB_STATE net=3 id=4 actor=CombatCharacter_0 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.26.57:036][674]LogTemp: Display: LAB_STATE net=3 id=3 actor=CombatCharacter_1 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.26.57:037][674]LogTemp: Display: LAB_STATE net=3 id=1 actor=CombatCharacter_2 ammo=30 health=60 stamina=100 ai=Player
+[2026.10.13-13.26.57:038][675]LogTemp: Display: LAB_STATE net=3 id=4 actor=CombatCharacter_0 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.26.58:036][734]LogTemp: Display: LAB_STATE net=3 id=3 actor=CombatCharacter_1 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.26.58:036][734]LogTemp: Display: LAB_STATE net=3 id=1 actor=CombatCharacter_2 ammo=30 health=60 stamina=100 ai=Player
+[2026.10.13-13.26.58:037][735]LogTemp: Display: LAB_STATE net=3 id=4 actor=CombatCharacter_0 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.26.59:036][794]LogTemp: Display: LAB_STATE net=3 id=3 actor=CombatCharacter_1 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.26.59:037][795]LogTemp: Display: LAB_STATE net=3 id=1 actor=CombatCharacter_2 ammo=30 health=60 stamina=100 ai=Player
+[2026.10.13-13.26.59:038][795]LogTemp: Display: LAB_STATE net=3 id=4 actor=CombatCharacter_0 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.27.00:036][854]LogTemp: Display: LAB_STATE net=3 id=3 actor=CombatCharacter_1 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.27.00:037][855]LogTemp: Display: LAB_STATE net=3 id=1 actor=CombatCharacter_2 ammo=30 health=60 stamina=100 ai=Player
+[2026.10.13-13.27.00:038][855]LogTemp: Display: LAB_STATE net=3 id=4 actor=CombatCharacter_0 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.27.01:036][914]LogTemp: Display: LAB_STATE net=3 id=3 actor=CombatCharacter_1 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.27.01:038][915]LogTemp: Display: LAB_STATE net=3 id=1 actor=CombatCharacter_2 ammo=30 health=60 stamina=100 ai=Player
+[2026.10.13-13.27.01:038][915]LogTemp: Display: LAB_STATE net=3 id=4 actor=CombatCharacter_0 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.27.02:037][975]LogTemp: Display: LAB_STATE net=3 id=3 actor=CombatCharacter_1 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.27.02:037][975]LogTemp: Display: LAB_STATE net=3 id=1 actor=CombatCharacter_2 ammo=30 health=60 stamina=100 ai=Player
+[2026.10.13-13.27.02:038][975]LogTemp: Display: LAB_STATE net=3 id=4 actor=CombatCharacter_0 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.27.03:036][ 34]LogTemp: Display: LAB_STATE net=3 id=3 actor=CombatCharacter_1 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.27.03:038][ 35]LogTemp: Display: LAB_STATE net=3 id=1 actor=CombatCharacter_2 ammo=30 health=60 stamina=100 ai=Player
+[2026.10.13-13.27.03:038][ 35]LogTemp: Display: LAB_STATE net=3 id=4 actor=CombatCharacter_0 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.27.04:037][ 94]LogTemp: Display: LAB_STATE net=3 id=3 actor=CombatCharacter_1 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.27.04:038][ 95]LogTemp: Display: LAB_STATE net=3 id=1 actor=CombatCharacter_2 ammo=30 health=60 stamina=100 ai=Player
+[2026.10.13-13.27.04:039][ 95]LogTemp: Display: LAB_STATE net=3 id=4 actor=CombatCharacter_0 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.27.05:037][155]LogTemp: Display: LAB_STATE net=3 id=3 actor=CombatCharacter_1 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.27.05:038][155]LogTemp: Display: LAB_STATE net=3 id=1 actor=CombatCharacter_2 ammo=30 health=60 stamina=100 ai=Player
+[2026.10.13-13.27.05:039][155]LogTemp: Display: LAB_STATE net=3 id=4 actor=CombatCharacter_0 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.27.06:037][214]LogTemp: Display: LAB_STATE net=3 id=3 actor=CombatCharacter_1 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.27.06:038][215]LogTemp: Display: LAB_STATE net=3 id=1 actor=CombatCharacter_2 ammo=30 health=60 stamina=100 ai=Player
+[2026.10.13-13.27.06:039][215]LogTemp: Display: LAB_STATE net=3 id=4 actor=CombatCharacter_0 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.27.07:038][275]LogTemp: Display: LAB_STATE net=3 id=1 actor=CombatCharacter_2 ammo=30 health=60 stamina=100 ai=Player
+[2026.10.13-13.27.07:039][275]LogTemp: Display: LAB_STATE net=3 id=4 actor=CombatCharacter_0 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.27.08:038][335]LogTemp: Display: LAB_STATE net=3 id=1 actor=CombatCharacter_2 ammo=30 health=60 stamina=100 ai=Player
+[2026.10.13-13.27.08:039][335]LogTemp: Display: LAB_STATE net=3 id=4 actor=CombatCharacter_0 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.27.09:038][394]LogTemp: Display: LAB_STATE net=3 id=1 actor=CombatCharacter_2 ammo=30 health=60 stamina=100 ai=Player
+[2026.10.13-13.27.09:038][395]LogTemp: Display: LAB_STATE net=3 id=4 actor=CombatCharacter_0 ammo=26 health=100 stamina=20 ai=Player
+[2026.10.13-13.27.10:038][454]LogTemp: Display: LAB_STATE net=3 id=1 actor=CombatCharacter_2 ammo=30 health=60 stamina=100 ai=Player
+[2026.10.13-13.27.10:039][455]LogTemp: Display: LAB_STATE net=3 id=4 actor=CombatCharacter_0 ammo=26 health=100 stamina=20 ai=Player
