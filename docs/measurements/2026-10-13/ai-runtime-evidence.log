@@ -1,0 +1,18 @@
+[2026.10.13-13.30.37:900][  0]LogTemp: Display: LAB_BT started=1 manager=1 running=1 ticking=1
+[2026.10.13-13.30.37:900][  0]LogTemp: Display: LAB_STARTED authority=1
+[2026.10.13-13.30.38:793][  1]LogTemp: Display: LAB_STATE net=0 id=1 actor=CombatCharacter_0 ammo=30 health=100 stamina=100 ai=Player
+[2026.10.13-13.30.38:793][  1]LogTemp: Display: LAB_STATE net=0 id=2 actor=CombatCharacter_1 ammo=30 health=100 stamina=100 ai=Patrol
+[2026.10.13-13.30.39:791][ 61]LogTemp: Display: LAB_STATE net=0 id=1 actor=CombatCharacter_0 ammo=30 health=100 stamina=100 ai=Player
+[2026.10.13-13.30.39:791][ 61]LogTemp: Display: LAB_STATE net=0 id=2 actor=CombatCharacter_1 ammo=30 health=100 stamina=100 ai=Chase
+[2026.10.13-13.30.40:793][121]LogTemp: Display: LAB_STATE net=0 id=1 actor=CombatCharacter_0 ammo=30 health=80 stamina=100 ai=Player
+[2026.10.13-13.30.40:793][121]LogTemp: Display: LAB_STATE net=0 id=2 actor=CombatCharacter_1 ammo=29 health=100 stamina=100 ai=Attack
+[2026.10.13-13.30.41:792][181]LogTemp: Display: LAB_STATE net=0 id=1 actor=CombatCharacter_0 ammo=30 health=0 stamina=100 ai=Player
+[2026.10.13-13.30.41:793][181]LogTemp: Display: LAB_STATE net=0 id=2 actor=CombatCharacter_1 ammo=25 health=100 stamina=100 ai=Patrol
+[2026.10.13-13.30.42:793][241]LogTemp: Display: LAB_STATE net=0 id=1 actor=CombatCharacter_0 ammo=30 health=0 stamina=100 ai=Player
+[2026.10.13-13.30.42:793][241]LogTemp: Display: LAB_STATE net=0 id=2 actor=CombatCharacter_1 ammo=25 health=100 stamina=100 ai=Patrol
+[2026.10.13-13.30.43:793][301]LogTemp: Display: LAB_STATE net=0 id=1 actor=CombatCharacter_0 ammo=30 health=0 stamina=100 ai=Player
+[2026.10.13-13.30.43:793][301]LogTemp: Display: LAB_STATE net=0 id=2 actor=CombatCharacter_1 ammo=25 health=100 stamina=100 ai=Patrol
+[2026.10.13-13.30.44:792][361]LogTemp: Display: LAB_STATE net=0 id=1 actor=CombatCharacter_0 ammo=30 health=0 stamina=100 ai=Player
+[2026.10.13-13.30.44:792][361]LogTemp: Display: LAB_STATE net=0 id=2 actor=CombatCharacter_1 ammo=25 health=100 stamina=100 ai=Patrol
+[2026.10.13-13.30.45:793][421]LogTemp: Display: LAB_STATE net=0 id=1 actor=CombatCharacter_0 ammo=30 health=0 stamina=100 ai=Player
+[2026.10.13-13.30.45:793][421]LogTemp: Display: LAB_STATE net=0 id=2 actor=CombatCharacter_1 ammo=25 health=100 stamina=100 ai=Patrol

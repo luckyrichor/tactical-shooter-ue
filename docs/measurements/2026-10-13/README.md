@@ -24,3 +24,5 @@ scripts/check.ps1最终完整执行退出0：Listen Server与两个独立客户�
 ## 失败与修正
 
 启动前csvCaptureFrames触发引擎RHI初始化断言，客户端回退单机，不作为通过证据；改到地图启动后start、退出前stop。旧Trace已经存在导致引擎拒绝覆盖，改为唯一名称。Automation销毁测试世界未EndPlay的警告已修正。PowerShell延迟获取子进程句柄导致ExitCode为空，两个客户端启动时即保留Handle，最终完整重跑验证退出码。
+## 正常场景AI补充验收
+最终编译源码不启用LabNetworkProbe/自动玩家，8秒真实运行退出0；ai-runtime-evidence.log实际包含Patrol/Chase/Attack，使用Sight感知而非测试手工设置Blackboard。此项补足Automation仅直接设置Target的边界。

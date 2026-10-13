@@ -30,3 +30,5 @@ W5 M2 GAS 两个技能的 Ability/Effect/Cue 链路，以及 W7 独立维护，�
 
 ## 2026-10-13 Windows恢复后的M1–M4工程验收（Codex）
 基线8322c82及本轮工作树：CombatLab Editor构建成功，4项Automation全Succeeded无警告。真实Listen Server+双客户端两次入服、技能RPC与Cue、6组最终角色关键状态一致；三个进程退出0。Unreal Insights实际分析新5709761字节Trace并导出Lab_*事件，frame CSV有2570 帧，完整报告/源码哈希见measurements/2026-10-13。RHI启动采集断言、旧Trace拒绝覆盖、测试World EndPlay与PowerShell退出码均修正后重跑。null RHI与限帧不构成渲染/生产性能，手感/画面人工验收按授权保留；此前跳过记录均为历史。
+
+正常场景8秒运行（不启用网络夹具或自动玩家）退出0，实际Sight驱动巡逻/追击/攻击均有日志，补足M3真实感知验收；证据见ai-runtime-evidence.log。Windows GitHub SSH两次失败，已提交变更将原样通过tx转发推送，不在tx修改本项目。
