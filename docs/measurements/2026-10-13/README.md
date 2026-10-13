@@ -4,7 +4,7 @@
 
 ## 联机
 
-scripts/check.ps1最终完整执行退出0：Listen Server与两个独立客户端，同机127.0.0.1；两次Join succeeded，服务器net=2/客户端net=3，Fire/技能RPC及客户端GameplayCue实际触发。服务器复制LabId，以身份关联最终Ammo/Health/Stamina/AIState，共8组客户端角色最终状态一致，三个进程退出0。不是每帧位移严格一致测试，不证明公网、丢包、重连或作弊防护。测试参数把敌人放到Sight之外，自动玩家输入五秒后停止；正常玩法不改变敌人位置。
+scripts/check.ps1最终完整执行退出0：Listen Server与两个独立客户端，同机127.0.0.1；两次Join succeeded，服务器net=2/客户端net=3，Fire/技能RPC及客户端GameplayCue实际触发。服务器复制LabId，以身份关联最终Ammo/Health/Stamina/AIState，共6组客户端角色最终状态一致，三个进程退出0。不是每帧位移严格一致测试，不证明公网、丢包、重连或作弊防护。测试参数把敌人放到Sight之外，自动玩家输入五秒后停止；正常玩法不改变敌人位置。
 
 ## Unreal Insights
 
