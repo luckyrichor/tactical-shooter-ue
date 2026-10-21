@@ -10,7 +10,7 @@ if($p.ExitCode -ne 0) {throw 'Build failed'}
 $exe="$engine\Binaries\Win64\UnrealEditor-Cmd.exe"
 $p=Start-Process $exe -ArgumentList "$root\CombatLab.uproject -unattended -nosplash -nosound -nullrhi -NoUdpMessaging -ExecCmds=`"Automation RunTests CombatLab`" -TestExit=`"Automation Test Queue Empty`" -ReportExportPath=$root\.local\automation-final -abslog=$root\.local\automation-final.log" -Wait -PassThru
 $j=Get-Content .local\automation-final\index.json -Raw | ConvertFrom-Json
-if($p.ExitCode -ne 0 -or $j.failed -ne 0 -or ($j.succeeded+$j.succeededWithWarnings) -ne 4) {throw 'Automation failed or missing tests'}
+if($p.ExitCode -ne 0 -or $j.failed -ne 0 -or ($j.succeeded+$j.succeededWithWarnings) -ne 5) {throw 'Automation failed or missing tests'}
 Write-Output "Automation: $($j.succeeded) clean successes, $($j.succeededWithWarnings) successes with warnings"
 if($SkipNetwork){exit 0}
 $tag=Get-Date -Format yyyyMMdd-HHmmss

@@ -2,6 +2,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/GameModeBase.h"
+#include "GameFramework/GameStateBase.h"
 #include "AbilitySystemInterface.h"
 #include "AbilitySystemComponent.h"
 #include "AttributeSet.h"
@@ -67,5 +68,12 @@ UCLASS() class COMBATLAB_API UEnemyTask:public UBTTaskNode {
 public:
  UEnemyTask();virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& Owner,uint8* Memory)override;
  virtual void TickTask(UBehaviorTreeComponent& Owner,uint8* Memory,float Delta)override;
+};
+// GameState exists on the server and each client; its lights are created locally
+// on every peer, so rendering never depends on the server's light components.
+UCLASS() class COMBATLAB_API ACombatGameState:public AGameStateBase {
+ GENERATED_BODY()
+public:
+ ACombatGameState();
 };
 UCLASS() class COMBATLAB_API ACombatMode:public AGameModeBase {GENERATED_BODY() public:int32 SpawnSlot=0;ACombatMode();virtual void StartPlay()override;virtual AActor* ChoosePlayerStart_Implementation(AController* Player)override;};

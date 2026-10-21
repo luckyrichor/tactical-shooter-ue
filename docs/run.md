@@ -2,7 +2,7 @@
 
 Windows：UE 5.6.1（D:\UE\UE_5.6），Visual Studio 2022。打开CombatLab.uproject；场景为引擎Entry，GameMode运行时生成占位角色、地面、敌人。WASD移动，鼠标相机，左键射击，R换弹，Space冲刺，F范围攻击。
 
-一键构建、四项Automation、Listen Server双客户端与采集检查：
+一键构建、五项Automation、Listen Server双客户端与采集检查：
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/check.ps1

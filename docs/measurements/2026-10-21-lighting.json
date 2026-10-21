@@ -1,0 +1,40 @@
+{
+    "render":  {
+                   "size":  "1280x720",
+                   "screenshot_sha256":  "F877206065C997EAC3BD3EDE87CB4FC8D55F09BB1D8957564D23F164075F2A2D",
+                   "exit":  0,
+                   "date_beijing":  "2026-10-21",
+                   "rhi":  "D3D12",
+                   "mode":  "Lit",
+                   "desktop_user_recheck":  "pending",
+                   "offscreen":  true
+               },
+    "network":  {
+                    "verified_final_actor_states":  6,
+                    "trace":  "server-20261020-153649.utrace",
+                    "server_exit":  0,
+                    "joins":  2,
+                    "client_exits":  [
+                                         0,
+                                         0
+                                     ]
+                },
+    "source":  "Windows worktree before commit",
+    "full_suite":  {
+                       "report_date":  "2026.10.20-07.36.44",
+                       "succeeded":  5,
+                       "warnings":  0,
+                       "failed":  0
+                   },
+    "baseline":  "5d96cae",
+    "regression_old_code":  {
+                                "succeeded":  0,
+                                "failed":  1
+                            },
+    "source_sha256":  {
+                          "Source/CombatLab/CombatTypes.h":  "86258BC33A5BB5D9D9C87BB869C1F0CE40F237FDBD1D925681EBB0DF1BB56825",
+                          "Source/CombatLab/CombatTests.cpp":  "17A24757307C822681C4368D031770DE65B66BB67D08B55B11C49DA752204921",
+                          "scripts/check.ps1":  "22123C97E048857B1E74695E9AEFF4CB3C2ED49F4AA1AAD872879134A1230198",
+                          "Source/CombatLab/CombatTypes.cpp":  "CBC94410638D33DBD35CE1CF1C00F7C5318929D7EEDE6577346EF6ED4B66AF85"
+                      }
+}

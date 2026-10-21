@@ -1,6 +1,6 @@
 # 进度记录
 
-最后更新：2026-10-02（北京时间）
+最后更新：2026-10-21（北京时间），Codex。
 
 本文件是 `tactical-shooter-ue` 的进度事实源，汇总到 `workplan-docs/进度总览.md`。
 
@@ -32,3 +32,14 @@ W5 M2 GAS 两个技能的 Ability/Effect/Cue 链路，以及 W7 独立维护，�
 基线8322c82及本轮工作树：CombatLab Editor构建成功，4项Automation全Succeeded无警告。真实Listen Server+双客户端两次入服、技能RPC与Cue、6组最终角色关键状态一致；三个进程退出0。Unreal Insights实际分析新5709761字节Trace并导出Lab_*事件，frame CSV有2570 帧，完整报告/源码哈希见measurements/2026-10-13。RHI启动采集断言、旧Trace拒绝覆盖、测试World EndPlay与PowerShell退出码均修正后重跑。null RHI与限帧不构成渲染/生产性能，手感/画面人工验收按授权保留；此前跳过记录均为历史。
 
 正常场景8秒运行（不启用网络夹具或自动玩家）退出0，实际Sight驱动巡逻/追击/攻击均有日志，补足M3真实感知验收；证据见ai-runtime-evidence.log。Windows GitHub SSH两次失败，已提交变更将原样通过tx转发推送，不在tx修改本项目。
+
+
+## 2026-10-21 正常渲染黑屏修复（Codex）
+
+来源 5d96cae + 本次 Windows 工作树。10月20日用户正常启动后全黑，切换 viewmode unlit 后可见；实时日志显示场景和 AI 运行。原因是空 Entry 场景只有地面和角色，没有光源。此前 null RHI 验收未覆盖实际画面。
+
+自定义复制 GameState 构造主方向光与弱补光，各客户端本地创建组件，并关闭 AInfo 默认隐藏状态。新增照明回归：旧代码0通过/1失败；10月20日最终全套5项通过、0警告，双客户端6组关键状态一致、三进程退出0。独立审查未发现正确性问题。
+
+10月21日使用真实 D3D、Lit 模式和 RenderOffscreen 生成1280x720截图，已检查地面、角色和阴影可见，进程退出0。SSH非交互窗口交换链曾返回 DXGI_ERROR_NOT_CURRENTLY_AVAILABLE；离屏避免创建桌面交换链，不是用户桌面重启验收，也不是GPU性能或手感验收。原启动命令可继续使用，不需要切换Unlit。证据摘要见 docs/measurements/2026-10-21-lighting.json。
+
+编译因约3GB可用内存持续等待，单次改用 -NoUBA -MaxParallelActions=1，未改全局配置；MSVC非首选版本警告仍存在。网络脚本摘要的date字段仍保留历史硬编码，实际执行日期以本次日志与trace文件名为准。

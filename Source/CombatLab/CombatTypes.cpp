@@ -11,6 +11,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "Components/DirectionalLightComponent.h"
 #include "Engine/StaticMeshActor.h"
 #include "EngineUtils.h"
 #include "DrawDebugHelpers.h"
@@ -70,7 +71,22 @@ void AEnemyController::Sensed(AActor* Actor,FAIStimulus S){auto* TargetCharacter
 UEnemyTask::UEnemyTask(){NodeName="Patrol Chase Attack";bNotifyTick=true;}
 EBTNodeResult::Type UEnemyTask::ExecuteTask(UBehaviorTreeComponent&,uint8*){return EBTNodeResult::InProgress;}
 void UEnemyTask::TickTask(UBehaviorTreeComponent& Owner,uint8*,float){TRACE_CPUPROFILER_EVENT_SCOPE(Lab_AI);auto* AI=Cast<AEnemyController>(Owner.GetAIOwner());auto* C=AI?Cast<ACombatCharacter>(AI->GetPawn()):nullptr;if(!C)return;auto* Target=Cast<ACombatCharacter>(AI->GetBlackboardComponent()->GetValueAsObject("Target"));if(!Target||Target->Attributes->GetHealth()<=0){C->AIState="Patrol";C->AddMovementInput(FVector(0,FMath::Sin(C->GetWorld()->GetTimeSeconds()),0));return;}FVector Direction=Target->GetActorLocation()-C->GetActorLocation();AI->SetControlRotation(Direction.Rotation());if(Direction.Size()>350){C->AIState="Chase";C->AddMovementInput(Direction.GetSafeNormal());}else{C->AIState="Attack";C->ServerFire();}}
-ACombatMode::ACombatMode(){DefaultPawnClass=ACombatCharacter::StaticClass();}
+ACombatGameState::ACombatGameState(){
+ SetActorHiddenInGame(false);
+ RootComponent=CreateDefaultSubobject<USceneComponent>(TEXT("SceneRoot"));
+ auto* Sun=CreateDefaultSubobject<UDirectionalLightComponent>(TEXT("Sun"));
+ Sun->SetupAttachment(RootComponent);
+ Sun->SetMobility(EComponentMobility::Movable);
+ Sun->SetRelativeRotation(FRotator(-45,-35,0));
+ Sun->SetIntensity(3.f);
+ auto* Fill=CreateDefaultSubobject<UDirectionalLightComponent>(TEXT("Fill"));
+ Fill->SetupAttachment(RootComponent);
+ Fill->SetMobility(EComponentMobility::Movable);
+ Fill->SetRelativeRotation(FRotator(-30,145,0));
+ Fill->SetIntensity(.6f);
+ Fill->SetCastShadows(false);
+}
+ACombatMode::ACombatMode(){DefaultPawnClass=ACombatCharacter::StaticClass();GameStateClass=ACombatGameState::StaticClass();}
 void ACombatMode::StartPlay(){Super::StartPlay();auto* Set=UAbilitySystemGlobals::Get().GetGameplayCueManager()->GetRuntimeCueSet();Set->AddCues({FGameplayCueReferencePair(LabDashCue,FSoftObjectPath(UDashCue::StaticClass())),FGameplayCueReferencePair(LabPulseCue,FSoftObjectPath(UPulseCue::StaticClass()))});auto* Floor=GetWorld()->SpawnActor<AStaticMeshActor>(FVector(0,0,-80),FRotator::ZeroRotator);Floor->SetReplicates(true);Floor->SetReplicateMovement(true);Floor->GetStaticMeshComponent()->SetIsReplicated(true);Floor->GetStaticMeshComponent()->SetMobility(EComponentMobility::Movable);Floor->GetStaticMeshComponent()->SetStaticMesh(LoadObject<UStaticMesh>(nullptr,TEXT("/Engine/BasicShapes/Cube.Cube")));Floor->SetActorScale3D(FVector(40,40,1));Floor->GetStaticMeshComponent()->SetCollisionProfileName("BlockAll");auto* Enemy=GetWorld()->SpawnActor<ACombatCharacter>(FVector(FParse::Param(FCommandLine::Get(),TEXT("LabNetworkProbe"))?5000:700,0,120),FRotator(0,180,0));if(Enemy){Enemy->AIState="Patrol";auto* AI=GetWorld()->SpawnActor<AEnemyController>();AI->Possess(Enemy);}UE_LOG(LogTemp,Display,TEXT("LAB_STARTED authority=%d"),HasAuthority());}
 
 AActor* ACombatMode::ChoosePlayerStart_Implementation(AController*){return GetWorld()->SpawnActor<APlayerStart>(FVector(-500,SpawnSlot++*180,120),FRotator::ZeroRotator);}

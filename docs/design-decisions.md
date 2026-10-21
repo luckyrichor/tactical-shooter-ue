@@ -1,6 +1,6 @@
 # 设计取舍
 
-最后更新：2026-10-13，Codex。
+最后更新：2026-10-21（北京时间），Codex。
 
 ## 工程与武器
 
@@ -21,3 +21,7 @@ Listen Server + 两个同机客户端，权威属性/Ammo/Reloading/AIState和�
 启动期-csvCaptureFrames在本引擎-nullrhi下触发RHI未初始化断言；改为地图启动后ExecCmds csvprofile start，退出前stop落盘。trace文件每次唯一命名，拒绝沿用旧文件。Unreal Insights可按Lab_AI/Fire/Dash/Pulse事件分析；null RHI只支持此夹具的CPU测量，不代表实际渲染帧率或优化收益。
 
 用户授权无法自动推进的UE/Unity部分跳过：人工视觉、手感和编辑器美术/动画验收仍需人工，不用自动测试冒充。
+
+## 基础场景照明（2026-10-21）
+
+空 Entry 没有光源，默认材质物体在 Lit 模式全黑。主方向光和弱补光作为自定义 GameState 默认组件，在服务器与客户端各自创建，避免仅服务器 GameMode 有光。显式清除 AInfo 默认隐藏标志。保留正常 Lit 模式；回归检查实际 GameMode 选用的 GameState 有可见非零光源，另用真实D3D离屏截图覆盖 null RHI 的视觉盲区。天空仍是占位黑背景，没有增加天空/美术系统。

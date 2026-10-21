@@ -6,6 +6,8 @@
 #include "EngineUtils.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "GameFramework/WorldSettings.h"
+#include "GameFramework/GameStateBase.h"
+#include "Components/DirectionalLightComponent.h"
 struct FLabWorld {
  UWorld* World;
  FLabWorld(){World=UWorld::CreateWorld(EWorldType::Game,false);GEngine->CreateNewWorldContext(EWorldType::Game).SetCurrentWorld(World);World->CreateAISystem();World->InitializeActorsForPlay(FURL());World->GetWorldSettings()->NotifyBeginPlay();World->GetWorldSettings()->NotifyMatchStarted();}
@@ -21,4 +23,16 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(FAITest,"CombatLab.AI.BehaviorTransitions",EAut
 bool FAITest::RunTest(const FString&){auto Fixture=MakeShared<FLabWorld>();auto* Enemy=Fixture->Character();auto* Target=Fixture->Character(FVector(1000,0,200));auto* AI=Fixture->World->SpawnActor<AEnemyController>();AI->Possess(Enemy);auto Step=MakeShared<int32>(0);FAutomationTestFramework::Get().EnqueueLatentCommand(MakeShareable(new FLabLatent([this,Fixture,Enemy,Target,AI,Step](){Fixture->World->Tick(LEVELTICK_All,.05f);++*Step;if(*Step==5){TestEqual("no sensed target patrols",Enemy->AIState,FName("Patrol"));AI->GetBlackboardComponent()->SetValueAsObject("Target",Target);}if(*Step==10){TestEqual("distant target chased",Enemy->AIState,FName("Chase"));Target->SetActorLocation(Enemy->GetActorLocation()+FVector(150,0,0));}if(*Step==15){TestEqual("near target attacked",Enemy->AIState,FName("Attack"));return true;}return false;})));return true;}
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FHealthTest,"CombatLab.GAS.HealthClamp",EAutomationTestFlags::EditorContext|EAutomationTestFlags::EngineFilter)
 bool FHealthTest::RunTest(const FString&){FLabWorld Fixture;auto* C=Fixture.Character();auto* T=Fixture.Character(FVector(150,0,200));for(int i=0;i<10;i++)C->ApplyHit(T);TestEqual("damage clamps at zero",T->Attributes->GetHealth(),0.f);T->ServerFire();TestEqual("dead cannot fire",T->Ammo,30);return true;}
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FSceneLightingTest,"CombatLab.Scene.Lighting",EAutomationTestFlags::EditorContext|EAutomationTestFlags::EngineFilter)
+bool FSceneLightingTest::RunTest(const FString&){
+ FLabWorld Fixture;
+ auto* Mode=Fixture.World->SpawnActor<ACombatMode>();
+ auto* State=Fixture.World->SpawnActor<AGameStateBase>(Mode->GameStateClass);
+ TArray<UDirectionalLightComponent*> Lights; State->GetComponents(Lights);
+ bool HasVisibleLighting=false;
+ for(auto* Light:Lights) if(Light->IsVisible()&&Light->Intensity>0) HasVisibleLighting=!State->IsHidden();
+ TestTrue("normal rendered scene has visible nonzero lighting on its replicated game state",HasVisibleLighting);
+ TestTrue("lighting owner replicates to network clients",State->GetIsReplicated());
+ return true;
+}
 #endif
