@@ -3,6 +3,8 @@
 #include "GameFramework/Character.h"
 #include "GameFramework/GameModeBase.h"
 #include "GameFramework/GameStateBase.h"
+#include "GameFramework/PlayerController.h"
+#include "GameFramework/HUD.h"
 #include "AbilitySystemInterface.h"
 #include "AbilitySystemComponent.h"
 #include "AttributeSet.h"
@@ -48,6 +50,7 @@ public:
  virtual void Tick(float Delta)override;
  virtual void SetupPlayerInputComponent(UInputComponent* Input)override;
  virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out)const override;
+ bool HasGameplayFocus()const;
  void ApplyHit(ACombatCharacter* Target);
  void Forward(float Value);void Right(float Value);void Look(float Value);void Pitch(float Value);
  void Fire();void Reload();void Dash();void Pulse();
@@ -75,5 +78,17 @@ UCLASS() class COMBATLAB_API ACombatGameState:public AGameStateBase {
  GENERATED_BODY()
 public:
  ACombatGameState();
+};
+UCLASS() class COMBATLAB_API ACombatPlayerController:public APlayerController {
+ GENERATED_BODY()
+public:
+ virtual void SetupInputComponent()override;
+ void ToggleCursor();
+ void RestartSinglePlayer();
+};
+UCLASS() class COMBATLAB_API ACombatHUD:public AHUD {
+ GENERATED_BODY()
+public:
+ virtual void DrawHUD()override;
 };
 UCLASS() class COMBATLAB_API ACombatMode:public AGameModeBase {GENERATED_BODY() public:int32 SpawnSlot=0;ACombatMode();virtual void StartPlay()override;virtual AActor* ChoosePlayerStart_Implementation(AController* Player)override;};

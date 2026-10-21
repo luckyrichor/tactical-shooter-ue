@@ -12,6 +12,9 @@
 #include "Components/CapsuleComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/DirectionalLightComponent.h"
+#include "Components/InputComponent.h"
+#include "Engine/GameViewportClient.h"
+#include "InputCoreTypes.h"
 #include "Engine/StaticMeshActor.h"
 #include "EngineUtils.h"
 #include "DrawDebugHelpers.h"
@@ -56,10 +59,11 @@ void ACombatCharacter::BeginPlay(){Super::BeginPlay();auto* Set=UAbilitySystemGl
 void ACombatCharacter::Tick(float Delta){Super::Tick(Delta);double Now=GetWorld()->GetTimeSeconds();if(FParse::Param(FCommandLine::Get(),TEXT("LabAutoPlayer"))&&IsPlayerControlled()&&IsLocallyControlled()){if(ProbeEnd==0)ProbeEnd=Now+5;if(Now<ProbeEnd)Forward(.4f);if(Now<ProbeEnd&&Now>NextProbe){NextProbe=Now+1;Fire();Pulse();Dash();}}if(Now>NextState){NextState=Now+1;UE_LOG(LogTemp,Display,TEXT("LAB_STATE net=%d id=%d actor=%s ammo=%d health=%.0f stamina=%.0f ai=%s"),(int)GetNetMode(),LabId,*GetName(),Ammo,Attributes->GetHealth(),Attributes->GetStamina(),*AIState.ToString());}float Exit=0;if(FParse::Value(FCommandLine::Get(),TEXT("LabExitSeconds="),Exit)&&Exit>0){if(HasAuthority()&&Now>Exit-2){static bool Stopped=false;if(!Stopped){Stopped=true;GEngine->Exec(GetWorld(),TEXT("csvprofile stop"));}}if(Now>Exit)FPlatformMisc::RequestExit(false);}}
 void ACombatCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps)const{Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(ACombatCharacter,LabId);DOREPLIFETIME(ACombatCharacter,Ammo);DOREPLIFETIME(ACombatCharacter,Reloading);DOREPLIFETIME(ACombatCharacter,AIState);}
 void ACombatCharacter::SetupPlayerInputComponent(UInputComponent* I){Super::SetupPlayerInputComponent(I);I->BindAxis("Forward",this,&ACombatCharacter::Forward);I->BindAxis("Right",this,&ACombatCharacter::Right);I->BindAxis("Look",this,&ACombatCharacter::Look);I->BindAxis("Pitch",this,&ACombatCharacter::Pitch);I->BindAction("Fire",IE_Pressed,this,&ACombatCharacter::Fire);I->BindAction("Reload",IE_Pressed,this,&ACombatCharacter::Reload);I->BindAction("Dash",IE_Pressed,this,&ACombatCharacter::Dash);I->BindAction("Pulse",IE_Pressed,this,&ACombatCharacter::Pulse);}
-void ACombatCharacter::Forward(float V){if(Attributes->GetHealth()>0)AddMovementInput(FRotationMatrix(FRotator(0,GetControlRotation().Yaw,0)).GetUnitAxis(EAxis::X),V);}
-void ACombatCharacter::Right(float V){if(Attributes->GetHealth()>0)AddMovementInput(FRotationMatrix(FRotator(0,GetControlRotation().Yaw,0)).GetUnitAxis(EAxis::Y),V);}
+bool ACombatCharacter::HasGameplayFocus()const{const auto* PC=Cast<APlayerController>(GetController());return !PC||!PC->bShowMouseCursor;}
+void ACombatCharacter::Forward(float V){if(HasGameplayFocus()&&Attributes->GetHealth()>0)AddMovementInput(FRotationMatrix(FRotator(0,GetControlRotation().Yaw,0)).GetUnitAxis(EAxis::X),V);}
+void ACombatCharacter::Right(float V){if(HasGameplayFocus()&&Attributes->GetHealth()>0)AddMovementInput(FRotationMatrix(FRotator(0,GetControlRotation().Yaw,0)).GetUnitAxis(EAxis::Y),V);}
 void ACombatCharacter::Look(float V){AddControllerYawInput(V);}void ACombatCharacter::Pitch(float V){AddControllerPitchInput(V);}
-void ACombatCharacter::Fire(){ServerFire();}void ACombatCharacter::Reload(){ServerReload();}void ACombatCharacter::Dash(){ServerSkill(false);}void ACombatCharacter::Pulse(){ServerSkill(true);}
+void ACombatCharacter::Fire(){if(HasGameplayFocus())ServerFire();}void ACombatCharacter::Reload(){if(HasGameplayFocus())ServerReload();}void ACombatCharacter::Dash(){if(HasGameplayFocus())ServerSkill(false);}void ACombatCharacter::Pulse(){if(HasGameplayFocus())ServerSkill(true);}
 void ACombatCharacter::ApplyHit(ACombatCharacter* Target){if(!HasAuthority()||!Target)return;auto Spec=Abilities->MakeOutgoingSpec(UDamageEffect::StaticClass(),1,Abilities->MakeEffectContext());if(Spec.IsValid())Abilities->ApplyGameplayEffectSpecToTarget(*Spec.Data.Get(),Target->Abilities);}
 void ACombatCharacter::ServerFire_Implementation(){TRACE_CPUPROFILER_EVENT_SCOPE(Lab_Fire);double Now=GetWorld()->GetTimeSeconds();if(Ammo<=0||Reloading||Attributes->GetHealth()<=0||Now<NextFire)return;NextFire=Now+.15;Ammo--;FVector Start;FRotator Aim;GetActorEyesViewPoint(Start,Aim);FVector End=Start+Aim.Vector()*3000;FHitResult Hit;FCollisionQueryParams Query;Query.AddIgnoredActor(this);if(GetWorld()->LineTraceSingleByChannel(Hit,Start,End,ECC_Visibility,Query)){End=Hit.ImpactPoint;if(auto* Target=Cast<ACombatCharacter>(Hit.GetActor()))ApplyHit(Target);}ShotFX(End);}
 void ACombatCharacter::ShotFX_Implementation(FVector End){DrawDebugLine(GetWorld(),GetActorLocation()+FVector(0,0,50),End,FColor::Red,false,.2);}
@@ -86,7 +90,39 @@ ACombatGameState::ACombatGameState(){
  Fill->SetIntensity(.6f);
  Fill->SetCastShadows(false);
 }
-ACombatMode::ACombatMode(){DefaultPawnClass=ACombatCharacter::StaticClass();GameStateClass=ACombatGameState::StaticClass();}
-void ACombatMode::StartPlay(){Super::StartPlay();auto* Set=UAbilitySystemGlobals::Get().GetGameplayCueManager()->GetRuntimeCueSet();Set->AddCues({FGameplayCueReferencePair(LabDashCue,FSoftObjectPath(UDashCue::StaticClass())),FGameplayCueReferencePair(LabPulseCue,FSoftObjectPath(UPulseCue::StaticClass()))});auto* Floor=GetWorld()->SpawnActor<AStaticMeshActor>(FVector(0,0,-80),FRotator::ZeroRotator);Floor->SetReplicates(true);Floor->SetReplicateMovement(true);Floor->GetStaticMeshComponent()->SetIsReplicated(true);Floor->GetStaticMeshComponent()->SetMobility(EComponentMobility::Movable);Floor->GetStaticMeshComponent()->SetStaticMesh(LoadObject<UStaticMesh>(nullptr,TEXT("/Engine/BasicShapes/Cube.Cube")));Floor->SetActorScale3D(FVector(40,40,1));Floor->GetStaticMeshComponent()->SetCollisionProfileName("BlockAll");auto* Enemy=GetWorld()->SpawnActor<ACombatCharacter>(FVector(FParse::Param(FCommandLine::Get(),TEXT("LabNetworkProbe"))?5000:700,0,120),FRotator(0,180,0));if(Enemy){Enemy->AIState="Patrol";auto* AI=GetWorld()->SpawnActor<AEnemyController>();AI->Possess(Enemy);}UE_LOG(LogTemp,Display,TEXT("LAB_STARTED authority=%d"),HasAuthority());}
+void ACombatPlayerController::SetupInputComponent(){
+ Super::SetupInputComponent();
+ InputComponent->BindKey(EKeys::Escape,IE_Pressed,this,&ACombatPlayerController::ToggleCursor);
+ InputComponent->BindKey(EKeys::Enter,IE_Pressed,this,&ACombatPlayerController::RestartSinglePlayer);
+}
+void ACombatPlayerController::ToggleCursor(){
+ const bool Released=!bShowMouseCursor;
+ bShowMouseCursor=Released;
+ SetIgnoreLookInput(Released); SetIgnoreMoveInput(Released);
+ if(Released){
+  FInputModeGameAndUI Mode;
+  Mode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
+  Mode.SetHideCursorDuringCapture(false);
+  SetInputMode(Mode);
+ }else{SetInputMode(FInputModeGameOnly());}
+ if(auto* Viewport=GetWorld()->GetGameViewport()){
+  Viewport->SetMouseCaptureMode(Released?EMouseCaptureMode::NoCapture:EMouseCaptureMode::CapturePermanently_IncludingInitialMouseDown);
+  Viewport->SetMouseLockMode(Released?EMouseLockMode::DoNotLock:EMouseLockMode::LockOnCapture);
+ }
+ UE_LOG(LogTemp,Display,TEXT("LAB_CURSOR released=%d"),Released);
+}
+void ACombatPlayerController::RestartSinglePlayer(){if(GetNetMode()==NM_Standalone)RestartLevel();}
+void ACombatHUD::DrawHUD(){
+ Super::DrawHUD();
+ auto* PC=GetOwningPlayerController();
+ auto* C=PC?Cast<ACombatCharacter>(PC->GetPawn()):nullptr;
+ if(!C||!Canvas)return;
+ DrawText(FString::Printf(TEXT("HP %.0f   Ammo %d/30   Stamina %.0f"),C->Attributes->GetHealth(),C->Ammo,C->Attributes->GetStamina()),FLinearColor::White,24,24,nullptr,1.4f);
+ DrawText(TEXT("WASD move | Mouse look | Click fire | R reload | Space dash | F pulse"),FLinearColor::White,24,54);
+ DrawText(PC->bShowMouseCursor?TEXT("MOUSE RELEASED - Esc to resume | You can close the window"):TEXT("Esc: release mouse | Enter: restart single-player"),FLinearColor::Yellow,24,78);
+ if(C->Attributes->GetHealth()<=0)DrawText(GetNetMode()==NM_Standalone?TEXT("YOU ARE DEAD - Press Enter to restart"):TEXT("YOU ARE DEAD - no multiplayer respawn in this prototype"),FLinearColor::Red,24,110,nullptr,1.5f);
+}
+ACombatMode::ACombatMode(){DefaultPawnClass=ACombatCharacter::StaticClass();GameStateClass=ACombatGameState::StaticClass();PlayerControllerClass=ACombatPlayerController::StaticClass();HUDClass=ACombatHUD::StaticClass();}
+void ACombatMode::StartPlay(){Super::StartPlay();auto* Set=UAbilitySystemGlobals::Get().GetGameplayCueManager()->GetRuntimeCueSet();Set->AddCues({FGameplayCueReferencePair(LabDashCue,FSoftObjectPath(UDashCue::StaticClass())),FGameplayCueReferencePair(LabPulseCue,FSoftObjectPath(UPulseCue::StaticClass()))});auto* Floor=GetWorld()->SpawnActor<AStaticMeshActor>(FVector(0,0,-80),FRotator::ZeroRotator);Floor->SetReplicates(true);Floor->SetReplicateMovement(true);Floor->GetStaticMeshComponent()->SetIsReplicated(true);Floor->GetStaticMeshComponent()->SetMobility(EComponentMobility::Movable);Floor->GetStaticMeshComponent()->SetStaticMesh(LoadObject<UStaticMesh>(nullptr,TEXT("/Engine/BasicShapes/Cube.Cube")));Floor->SetActorScale3D(FVector(40,40,1));Floor->GetStaticMeshComponent()->SetCollisionProfileName("BlockAll");auto* Enemy=GetWorld()->SpawnActor<ACombatCharacter>(FVector(FParse::Param(FCommandLine::Get(),TEXT("LabNetworkProbe"))?5000:1500,0,120),FRotator(0,180,0));if(Enemy){Enemy->AIState="Patrol";auto* AI=GetWorld()->SpawnActor<AEnemyController>();AI->Possess(Enemy);}UE_LOG(LogTemp,Display,TEXT("LAB_STARTED authority=%d"),HasAuthority());}
 
 AActor* ACombatMode::ChoosePlayerStart_Implementation(AController*){return GetWorld()->SpawnActor<APlayerStart>(FVector(-500,SpawnSlot++*180,120),FRotator::ZeroRotator);}

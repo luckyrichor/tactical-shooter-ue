@@ -1,0 +1,39 @@
+{
+    "green":  {
+                  "date":  "2026.10.21-09.03.55",
+                  "succeeded":  6,
+                  "warnings":  0,
+                  "failed":  0
+              },
+    "render":  {
+                   "image_sha256":  "4EE80195F1DA78CCF1384C4BDD0088DDB0C06DECC7097A96AE4C6D9FA5969431",
+                   "date_beijing":  "2026-10-21",
+                   "offscreen":  true,
+                   "physical_cursor_interaction":  "pending user verification",
+                   "exit":  0,
+                   "observed":  "HUD visible, HP100 Ammo30 Stamina100; player alive for 8 seconds",
+                   "mode":  "Lit"
+               },
+    "source":  "Windows working tree before commit",
+    "red":  {
+                "succeeded":  0,
+                "failed":  1
+            },
+    "baseline":  "7c077e4",
+    "network":  {
+                    "verified_final_actor_states":  6,
+                    "trace":  "server-20261021-170401.utrace",
+                    "server_exit":  0,
+                    "joins":  2,
+                    "client_exits":  [
+                                         0,
+                                         0
+                                     ]
+                },
+    "source_sha256":  {
+                          "Source/CombatLab/CombatTypes.h":  "F39B5A0DC22FF85C5560745B624B0A527928431929790262D4339D4BBBFB61F4",
+                          "Source/CombatLab/CombatTests.cpp":  "1A9DF2A6E2BD0C4C2E17BFA583F9E5E1D87A050F385E0E518A4308C64E0B1441",
+                          "scripts/check.ps1":  "F61FEF2C9FB386CD9E734EF9063DFB2F1D4B9ED65CB6355A6AFDDB67D7EDA578",
+                          "Source/CombatLab/CombatTypes.cpp":  "00B7DF8599768963CF85B53450A1A6350A7D2275C35CDB9675A90CC494CC5C4A"
+                      }
+}

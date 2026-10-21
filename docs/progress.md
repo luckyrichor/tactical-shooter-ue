@@ -43,3 +43,12 @@ W5 M2 GAS 两个技能的 Ability/Effect/Cue 链路，以及 W7 独立维护，�
 10月21日使用真实 D3D、Lit 模式和 RenderOffscreen 生成1280x720截图，已检查地面、角色和阴影可见，进程退出0。SSH非交互窗口交换链曾返回 DXGI_ERROR_NOT_CURRENTLY_AVAILABLE；离屏避免创建桌面交换链，不是用户桌面重启验收，也不是GPU性能或手感验收。原启动命令可继续使用，不需要切换Unlit。证据摘要见 docs/measurements/2026-10-21-lighting.json。
 
 编译因约3GB可用内存持续等待，单次改用 -NoUBA -MaxParallelActions=1，未改全局配置；MSVC非首选版本警告仍存在。网络脚本摘要的date字段仍保留历史硬编码，实际执行日期以本次日志与trace文件名为准。
+
+
+## 2026-10-21 鼠标释放与死亡反馈修复（Codex）
+
+来源7c077e4及Windows工作树。用户截图在限帧后约60FPS、Frame16.67ms，Game/Draw/GPU约1.8/2.0/6.0ms；只说明该时刻帧时间，不认定持续性能或卡顿根因。旧运行日志玩家health=0、弹药未消耗；死亡后移动和攻击被拒绝，而旧界面没有死亡提示。另核实默认控制器没有Esc释放操作。
+
+新增本地PlayerController：Esc切换鼠标显示、解锁和捕获，释放时禁止移动/转镜头和玩法输入；死亡后也可操作。Enter重开只适用于单人。HUD显示HP/Ammo/Stamina、操作提示和死亡信息。常规敌人从x700移至x1500，玩家从x-500开始，初始距离2000超过Sight1500，网络探针仍保持x5000。
+
+新输入回归先在旧代码失败（缺少Esc绑定），修复后6项Automation全部通过且0警告；Listen Server两个真实客户端，6组最终角色状态一致、三个进程退出0。正常D3D离屏Lit截图已检查HUD显示HP100/Ammo30/Stamina100，8秒观察玩家仍存活。证据摘要见 docs/measurements/2026-10-21-input.json。独立审查未发现正确性问题；实际Windows窗口失焦、鼠标移出和重新捕获仍需用户交互确认，不以nullRHI测试替代。

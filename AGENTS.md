@@ -8,7 +8,7 @@ UE C++ 战术射击原型：武器系统、技能、敌人 AI（行为树 + 感�
 
 三个月求职计划六项目之一（原编号 ①），对应岗位 **03、04**，兼顾 **12**。总计划见 [workplan-docs](https://github.com/luckyrichor/workplan-docs)。
 
-**当前状态：CombatLab实际C++工程已实现，UE5.6.1 Editor构建与5项Automation通过；最终联机/采集验收见docs/progress.md。** 建工程的分步操作见 [`docs/操作手册-工程骨架.md`](docs/操作手册-工程骨架.md)，那份是给用户在 Windows 前照着做的，**不要把它的内容复制到本文件**。
+**当前状态：CombatLab实际C++工程已实现，UE5.6.1 Editor构建与6项Automation通过；最终联机/采集验收见docs/progress.md。** 建工程的分步操作见 [`docs/操作手册-工程骨架.md`](docs/操作手册-工程骨架.md)，那份是给用户在 Windows 前照着做的，**不要把它的内容复制到本文件**。
 
 ## 引擎版本：UE 5.6.1（已安装）
 

@@ -25,3 +25,8 @@ Listen Server + 两个同机客户端，权威属性/Ammo/Reloading/AIState和�
 ## 基础场景照明（2026-10-21）
 
 空 Entry 没有光源，默认材质物体在 Lit 模式全黑。主方向光和弱补光作为自定义 GameState 默认组件，在服务器与客户端各自创建，避免仅服务器 GameMode 有光。显式清除 AInfo 默认隐藏标志。保留正常 Lit 模式；回归检查实际 GameMode 选用的 GameState 有可见非零光源，另用真实D3D离屏截图覆盖 null RHI 的视觉盲区。天空仍是占位黑背景，没有增加天空/美术系统。
+
+
+## 鼠标与死亡可见性（2026-10-21）
+
+释放鼠标绑定放在PlayerController而非Pawn，死亡后仍可Esc解锁。GameAndUI/DoNotLock/NoCapture与可见鼠标配合，保留Esc恢复；释放时移动与镜头忽略状态成对切换，玩法入口另拦截误射击/技能。AI仍走服务器攻击路径。HUD提供可见的生命值、弹药、体力与死亡提示，Enter只走UE已有的单机RestartLevel，不声称实现多人重生。敌人初始放在视野之外，给用户先操作的机会，未改变感知半径或伤害规则。

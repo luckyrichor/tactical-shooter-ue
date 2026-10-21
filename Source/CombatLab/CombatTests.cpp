@@ -8,6 +8,9 @@
 #include "GameFramework/WorldSettings.h"
 #include "GameFramework/GameStateBase.h"
 #include "Components/DirectionalLightComponent.h"
+#include "GameFramework/PlayerController.h"
+#include "Components/InputComponent.h"
+#include "InputCoreTypes.h"
 struct FLabWorld {
  UWorld* World;
  FLabWorld(){World=UWorld::CreateWorld(EWorldType::Game,false);GEngine->CreateNewWorldContext(EWorldType::Game).SetCurrentWorld(World);World->CreateAISystem();World->InitializeActorsForPlay(FURL());World->GetWorldSettings()->NotifyBeginPlay();World->GetWorldSettings()->NotifyMatchStarted();}
@@ -33,6 +36,31 @@ bool FSceneLightingTest::RunTest(const FString&){
  for(auto* Light:Lights) if(Light->IsVisible()&&Light->Intensity>0) HasVisibleLighting=!State->IsHidden();
  TestTrue("normal rendered scene has visible nonzero lighting on its replicated game state",HasVisibleLighting);
  TestTrue("lighting owner replicates to network clients",State->GetIsReplicated());
+ return true;
+}
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FCursorReleaseTest,"CombatLab.Input.CursorRelease",EAutomationTestFlags::EditorContext|EAutomationTestFlags::EngineFilter)
+bool FCursorReleaseTest::RunTest(const FString&){
+ FLabWorld Fixture;
+ auto* Mode=Fixture.World->SpawnActor<ACombatMode>();
+ auto* PC=Fixture.World->SpawnActor<APlayerController>(Mode->PlayerControllerClass);
+ auto* C=Fixture.Character(); PC->Possess(C); PC->InitInputSystem();
+ FInputKeyBinding* Escape=nullptr;
+ for(auto& Binding:PC->InputComponent->KeyBindings) if(Binding.Chord.Key==EKeys::Escape&&Binding.KeyEvent==IE_Pressed) Escape=&Binding;
+ TestTrue("Escape is bound on the actual gameplay controller",Escape!=nullptr);
+ if(!Escape)return false;
+ C->Attributes->SetHealth(0); Escape->KeyDelegate.Execute(EKeys::Escape);
+ TestTrue("dead players can release the cursor",PC->bShowMouseCursor);
+ TestTrue("released cursor does not rotate camera",PC->IsLookInputIgnored());
+ TestTrue("released cursor does not move player",PC->IsMoveInputIgnored());
+ C->Attributes->SetHealth(100); C->Fire();
+ TestEqual("released cursor cannot accidentally shoot",C->Ammo,30);
+ Escape->KeyDelegate.Execute(EKeys::Escape);
+ TestFalse("second Escape hides the cursor",PC->bShowMouseCursor);
+ TestFalse("camera control resumes",PC->IsLookInputIgnored());
+ TestFalse("movement control resumes",PC->IsMoveInputIgnored());
+ C->Fire(); TestEqual("shooting resumes",C->Ammo,29);
+ for(int32 i=0;i<4;++i)Escape->KeyDelegate.Execute(EKeys::Escape);
+ TestFalse("repeated toggles do not accumulate ignored input",PC->IsMoveInputIgnored()||PC->IsLookInputIgnored());
  return true;
 }
 #endif
